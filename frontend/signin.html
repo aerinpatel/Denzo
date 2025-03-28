@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in - Denzo</title>
+    <link rel="stylesheet" href="sign.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo nav-left">
+        <h4>Denzo</h4>
+      </div>
+      <div class="nav-right">
+        <a href="index.html">home</a>
+        <a href="#">twitter</a>
+      </div>
+    </nav>
+    <main>
+      <div class="sign-container">
+        <div class="sign-box">
+          <div class="sign-title">
+            <h2>Sign in</h2>
+          </div>
+          <div class="sign-form">
+            <input type="text" placeholder="Username" id="username" />
+            <input type="email" placeholder="Email" id="email" />
+            <input type="password" placeholder="Password" id="password" />
+            <button onclick="sendData()">Sign in</button>
+          </div>
+        </div>
+      </div>
+      <script>
+        function sendData() {
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const username = document.getElementById("username").value;
+
+          axios
+            .post("http://localhost:3000/signin", {
+              username:username,
+              email: email,
+              password: password,
+            })
+            .then(function (response) {
+              console.log(response);
+              if (response.data.token) {
+                alert("Signin successful");
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("user", response.data.username);
+                window.location.href = "http://localhost:3000/todos";
+              } else {
+                alert("Signin failed");
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+              alert("An error occurred during signin");
+            });
+        }
+      </script>
+    </main>
+  </body>
+</html>

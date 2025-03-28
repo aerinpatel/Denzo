@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up - Denzo</title>
+    <link rel="stylesheet" href="sign.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo nav-left">
+        <h4>Denzo</h4>
+      </div>
+      <div class="nav-right">
+        <a href="index.html">home</a>
+        <a href="#">twitter</a>
+      </div>
+    </nav>
+    <main>
+      <div class="sign-container">
+        <div class="sign-box">
+          <div class="sign-title">
+            <h2>Sign Up</h2>
+          </div>
+          <div class="sign-form">
+            <input type="text" placeholder="Username" id="username" />
+            <input type="email" placeholder="Email" id="email" />
+            <input type="password" placeholder="Password" id="password" />
+            <input type="password" placeholder="Confirm Password" id="confirm-password" />
+            <button onclick="sendData()">Sign Up</button>
+          </div>
+          <p>already a user <a href="http://localhost:3000/signin">signin</a></p>
+        </div>
+      </div>
+      <script>
+        function sendData() {
+          const email = document.getElementById("email").value;
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword = document.getElementById("confirm-password").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          axios
+            .post("http://localhost:3000/signup", {
+              email: email,
+              password: password,
+              username: username,
+            })
+            .then(function (response) {
+              console.log(response);
+              if (response.data === "success") {
+                alert("Signup successful");
+                window.location.href = "http://localhost:3000/signin";
+              } else {
+                alert("Signup failed");
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+              alert("An error occurred during signup");
+            });
+        }
+      </script>
+    </main>
+  </body>
+</html>

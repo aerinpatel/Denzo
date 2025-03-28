@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Drag and Drop Between Three Lists</title>
+  <style>
+    /* Style for the lists */
+    .list {
+      border: 2px solid #ccc;
+      width: 200px;
+      min-height: 200px;
+      margin: 10px;
+      padding: 10px;
+      list-style-type: none;
+      display: inline-block;
+      vertical-align: top;
+    }
+    /* Style for the list items */
+    .list li {
+      margin: 5px;
+      padding: 5px;
+      border: 1px solid #333;
+      background-color: #fff;
+      cursor: move;
+    }
+    /* Highlight the drop target */
+    .over {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Three lists with draggable items -->
+  <ul id="list1" class="list">
+    <li draggable="true">Item 1</li>
+    <li draggable="true">Item 2</li>
+    <li draggable="true">Item 3</li>
+  </ul>
+  
+  <ul id="list2" class="list">
+    <li draggable="true">Item A</li>
+    <li draggable="true">Item B</li>
+    <li draggable="true">Item C</li>
+  </ul>
+  
+  <ul id="list3" class="list">
+    <li draggable="true">Item X</li>
+    <li draggable="true">Item Y</li>
+    <li draggable="true">Item Z</li>
+  </ul>
+
+  <script>
+    // Store the currently dragged item
+    let draggedItem = null;
+
+    // Set up drag events for each list item
+    document.querySelectorAll('.list li').forEach(item => {
+      item.addEventListener('dragstart', function(e) {
+        draggedItem = this;
+        e.dataTransfer.effectAllowed = 'move';
+      });
+    });
+
+    // Set up drag and drop events for each list
+    document.querySelectorAll('.list').forEach(list => {
+      // Allow dropping by preventing default behavior
+      list.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+      });
+
+      // Add visual feedback when a draggable enters a list
+      list.addEventListener('dragenter', function(e) {
+        this.classList.add('over');
+      });
+
+      // Remove visual feedback when leaving the list
+      list.addEventListener('dragleave', function(e) {
+        this.classList.remove('over');
+      });
+
+      // Handle the drop event
+      list.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('over');
+        if (draggedItem) {
+          this.appendChild(draggedItem);
+          draggedItem = null;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

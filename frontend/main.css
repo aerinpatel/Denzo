@@ -1,0 +1,416 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+:root{
+  --dark: #000e29;
+  --bright: #ecfcff;
+  --blue: #00649a;
+  --off-bright: #efecff;
+}
+
+/* add the dragable feature in this website */
+
+nav{
+  height: 7vh;
+  background-color: var(--bright);
+  /* background-color: var(--off-bright); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--off-bright);
+  /* border-radius: -39px; */
+}
+nav h4{
+  color: var(--dark);
+  margin-left: 2rem;
+  font-size: 2.5rem;
+}
+nav .nav-right a{
+  margin-right: 1rem;
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 1.3rem;
+  border: 2px solid var(--dark);
+  padding: 0.5rem 1.2rem;
+  border-radius: 55rem;
+}
+nav .nav-right a:hover{
+  transition: 0.3s ease-in-out;
+  background-color: var(--dark);
+  color: var(--bright);
+}
+nav .nav-right{
+  margin-right: 2rem;
+}
+main {
+  display: flex;
+  min-width: 90vw;
+  height: 95vh;
+  background-image: url('images/main-cloud-img.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden; /* Prevent scrolling for the entire main container */
+  scrollbar-width: none;
+  /* padding-bottom: 5rem; */
+}
+
+main .profile-display {
+  position: relative;
+  min-height: 9vh; /* Full height of the viewport */
+  min-width: 20%; /* Default width for the profile display */
+  background-color: var(--off-bright);
+  border-right: 2px solid var(--bright);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s ease-in-out; /* Smooth transition for width */
+  overflow: hidden; /* Prevent scrolling inside the profile display */
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+
+}
+
+main .profile-display.closed {
+  width: 0; /* When closed, take no space */
+  padding: 0; /* Remove padding when closed */
+  display: none;
+  transition: 0.3s ease-in-out;
+  border-right: none; /* Remove border when closed */
+}
+
+
+.profile-display-top{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  align-items: center;
+}
+.profile-display-top button{
+  width: 90%;
+  border: 2px solid var(--blue);
+  background-color: var(--bright);
+  color: var(--dark);
+  border-radius: 55rem;
+  padding: 0.5rem;
+}
+.profile-display-top button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
+}
+.log-out{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+}
+.log-out button{
+  border: 2px solid var(--blue);
+  background-color: var(--bright);
+  color: var(--dark);
+  width: 100%;
+  border-radius: 55rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin: 1rem;
+}
+.log-out button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
+}
+.profile-card{
+  border: 2px solid var(--blue);
+  background-color: var(--dark);
+  color: var(--bright);
+  height: 4rem;
+  max-height: 6rem;
+  min-height: 4rem;
+  
+  display: flex;
+  /* justify-content: space-between; */
+  /* justify-content: center; */
+  align-items: center;
+  border-radius: 100px;
+  width: 90%;
+  padding: 2.3rem 0.6rem;
+  margin: 1rem;
+  /* margin-top: 2rem; */
+}
+.profile-card img{
+  border-radius: 100px;
+  width: 3rem;
+  left: 0;
+
+  height: 3rem;
+}
+.profile-card h3{
+  font-size: 1.2rem;
+}
+.profile-card .profile-card-left{
+  left: 0;
+  width: 27%;
+}
+.profile-card-right{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+}
+.todo-container {
+  
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start; /* Add this line */
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.todo-container section {
+  display: flex;
+  border-radius: 15px;
+  width: 35%;
+  margin-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  /* min-height: 15rem; */
+  background-color: var(--bright);
+  padding: 1rem;
+  color: var(--dark);
+  
+}
+.todo-container section .todo-section-top button{
+  border: none;
+  background-color: var(--blue);
+  color: var(--bright);
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+}
+.todo-section-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 1rem; */
+  /* width: 100%; */
+  /* border: 2px solid var(--dark); */
+  /* margin: 1rem; */
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.todo-items{
+  min-height: 12rem;
+  width: 100%;
+  background-color: var(--off-bright);
+  border-radius: 15px;
+  padding: 1rem;
+  
+  color: gray;
+}
+.user-welcome{
+  margin-top: 1.5rem;
+}
+.right-part-main {
+  flex-grow: 1; /* Allow it to expand to fill available space */
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Enable vertical scrolling for the right part */
+  padding: 2rem; /* Add some padding for better spacing */
+  display: flex;
+  
+  flex-direction: column;
+  transition: width 0.3s ease-in-out; /* Smooth transition for resizing */
+}
+.todo-task{
+  /* border: 2px solid var(--blue); */
+  background-color: var(--bright);
+  border-radius: 20px;
+  padding: 1rem;
+  /* color: var(--dark); */
+  margin-bottom: 1rem;
+}
+.todo-task-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.todo-task-title{
+  color: var(--dark);
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  min-height: 1.5rem;
+  word-wrap: break-word; /* Break long words */
+  word-break: break-word; /* Ensure long words break */
+  white-space: normal; /* Allow text to wrap */
+}
+.todo-task-status{
+  border: 1px solid var(--blue);
+  background-color: var(--off-bright);
+  padding: 4px 7px;
+  color: var(--dark);
+  border-radius: 50px;
+  display: flex;
+  font-size: 0.9rem;
+  justify-content: center;
+  text-transform: capitalize;
+  align-items: center;
+}
+.todo-task-top button{
+  border: none;
+  background-color: var(--blue);
+  color: var(--bright);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem .5rem;
+}
+.complete-button button{
+  border: none;
+  background-color: var(--blue);
+  color: var(--bright);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0.3rem .5rem; */
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+.todo-section-middle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 1rem; */
+  margin-top: 0.5rem;
+}
+.todo-task-priority{
+  border: 1px solid red;
+  background-color: rgb(255, 144, 144);
+  padding: 0.3rem 0.7rem;
+  color: var(--dark);
+  border-radius: 50px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.todo-task-date{
+  color: var(--dark); 
+  text-decoration: underline;
+}
+.todo-input{
+  position: absolute;
+  width: 100%;
+  
+  min-height: 93vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.441);
+}
+
+.todo-input-form{
+  background-color: var(--off-bright);
+  border-radius: 20px;
+  padding: 1rem;
+  border: 8px solid white;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+}
+.todo-input-top{
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 1px solid gray; */
+  padding: 0.5rem;
+}
+.todo-input-top h2{
+  color: var(--dark);
+  font-size: 2rem;
+}
+.todo-input-top button{
+  border: none;
+  background-color: var(--blue);
+  color: var(--bright);
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  padding: 0.3rem .5rem;
+}
+.todo-input-top button:hover{
+  background-color: red;
+  color: var(--bright);
+  transition: 0.1s ease-in-out;
+}
+#todo-title{
+  width: 100%;
+  border: none;
+  border: 1px solid grey;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+#todo-date-input{
+  border: none;
+  color: grey;
+  background-color: var(--off-bright);
+}
+.close{
+  /* width: 0; */
+  /* height: 0; */
+  display: none;/
+  
+}
+
+.sidebar {
+  position: absolute;
+  left: -20px;
+  display: none;
+  transition: 0.1s ease-in-out;
+  transform: translateX(-100%);
+  display: none;
+  width: none;
+  width: 0; /* When closed, take no space */
+  padding: 0; /* Remove padding when closed */
+  border-right: none;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+#toggle-menu-button{
+  height: 40px;
+  width: 45px;
+  margin: 1rem;
+
+  padding: 0.7rem;
+  transform: 0.3s ease-in-out;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  color: var(--dark);
+  background-color: var(--bright);
+  border: none;
+}
+#toggle-menu-button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
+}
+
+ /* make the ui of the todo added more asthetic and make the input of the todos correct */

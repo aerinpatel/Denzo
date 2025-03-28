@@ -1,0 +1,220 @@
+:root {
+  --dark: #000e29;
+  --bright: #ecfcff; /* Your light background color */
+  --blue: #00649a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: auto; /* Keeps scrolling functional */
+  scrollbar-width: none;
+  
+}
+
+body {
+  font-family: monospace;
+  background-color: var(--bright);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+}
+
+/* Hide scrollbar in Webkit browsers */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Navigation Bar */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+  color: var(--bright);
+  font-size: 17px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+}
+
+nav ul {
+  width: 30%;
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  padding: 7px 10px;
+  border: 2px solid var(--bright);
+  border-radius: 50px;
+  background: inherit;
+  backdrop-filter: blur(10px);
+}
+
+nav ul a {
+  text-decoration: none;
+  color: var(--bright);
+}
+
+.next-page-btn {
+  margin-right: 2rem;
+  text-decoration: none;
+  color: var(--bright);
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border: 4px solid transparent;
+}
+
+.next-page-btn:hover {
+  transition: 0.5s ease-in-out;
+  /* background-color: var(--dark); */
+  /* color: var(--bright); */
+  border: 4px solid var(--bright);
+  font-weight: 900;
+  padding: 0.5rem 1.2rem;
+  border-radius: 55rem;
+}
+
+.logo {
+  margin-left: 3rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo h4{
+  margin-left: 1rem;
+}
+
+/* When the page is scrolled past the video, move the nav up */
+nav.scrolled {
+  top: -15vh;
+}
+
+/* Video container styling */
+.video-box {
+  height: 110vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Video styling – note: no fixed positioning */
+.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* z-index: -1000; */
+  object-position: center;
+}
+h1 {
+  z-index: 10;
+}
+
+/* Blur overlay at the bottom of the video */
+.blur-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh; /* Adjust this height as needed */
+  background: linear-gradient(
+    to bottom,
+    rgba(236, 252, 255, 0) 0%,
+    var(--bright) 100%
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Style for content below the video */
+main h1 {
+  padding: 2rem;
+}
+/* Modified .page1 styles */
+.page1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 102;
+  pointer-events: none; /* Allow interaction with content below */
+  overflow: hidden; /* Prevent any scrolling within the container */
+  .pg-title1{
+    /* border-bottom: 2px solid var(--bright); */
+    font-size: 1.5vw;
+    /* margin-bottom: 1vh; */
+    backdrop-filter: blur(2px);
+    padding: 1rem;
+    border-radius: 30px;
+    color: var(--dark);
+  }
+  .pg-title2{
+    font-size: 3.5vw;
+    font-weight: 900;
+    color: var(--bright);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+  }
+  .description{
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    width: 70%;
+    /* margin-top: 2vh; */
+    text-align: center;
+    /* border: 2px solid whitesmoke; */
+    /* box-shadow: 1px 2px 1px 2px var(--dark); */
+    border-radius: 30px;
+    backdrop-filter: blur(2px);
+    padding: 2rem;
+  }
+}
+.brightcl{
+  /* background-color: var(--bright); */
+  color: var(--bright);
+}
+.darkcl{
+  color: var(--dark);
+}
+
+/* Add this new rule for the content container */
+.content-container {
+  position: relative;
+  margin-top: 100vh; /* Push content below the viewport height */
+  z-index: 101;
+}
+
+.todo-items {
+  min-height: 20rem;
+  background-color: rgba(236, 252, 255, 0.8); /* One shade lighter */
+  width: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.todo-section-top button {
+  background-color: var(--blue);
+  color: var(--bright);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.todo-section-top button:hover {
+  background-color: var(--dark);
+}
