@@ -15,7 +15,7 @@ app.use(cors());
 // Serve static files from the frontend directory
 
 mongoose.connect(
-  "mongodb+srv://aerinpatel:aerin1213@cluster0.iqpmi.mongodb.net/denzo"
+  ""
 );
 const User = mongoose.model("User", userSchema);
 const Todo = mongoose.model("Todo", todoSchema);

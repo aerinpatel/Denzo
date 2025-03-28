@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const ObjectId = Schema.ObjectId;
-// mongoose.connect("mongodb+srv://aerinpatel:aerin1213@cluster0.iqpmi.mongodb.net/denzo", {
+
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true
 // });

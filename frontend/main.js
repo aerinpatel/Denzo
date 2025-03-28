@@ -51,6 +51,8 @@ function loadtodos(){
       } else if(todo.status === "completed") {
         completed_items.appendChild(new_todo);
       }
+
+      if()
     }).catch((error) => {
       console.error(error);
       alert("Failed to load todos");
