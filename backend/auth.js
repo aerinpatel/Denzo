@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 
-const JWT_SECRET = 'BADAM';
+const JWT_SECRET = 'your_jwt_secret_key'; // Replace with your actual secret key
 
 function authorization(req, res, next) {
   const token = req.headers.authorization;

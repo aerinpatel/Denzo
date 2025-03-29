@@ -61,7 +61,7 @@
               <h3><span class="user-name">guest</span></h3>
             </div>
           </div>
-          <!-- <button onclick="toggleSidebar()">Toggle Sidebar</button> -->
+          <button onclick="Todomenu()">add todo</button>
         </div>
         <div class="log-out">
           <button><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
@@ -78,7 +78,7 @@
           <section class="todo-section" id="all-todos">
             <div class="todo-section-top">
               <h2>All Todos </h2>
-              <button onclick="Todomenu()">add todo</button>
+              <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
             
             <div class="todo-items" id="todo-items-in-todo">
@@ -93,37 +93,28 @@
           <section class="todo-section" id="in-progress">
             <div class="todo-section-top">
               <h2>In Progress</h2>
-              <button onclick="Todomenu()">add todo</button>
+              <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
             <div class="todo-items" id="todo-items-in-progress">
-               
-                <!-- <div class="item-todo">
-                  <div class="todo-task">
-                    <div class="todo-task-top">
-                      <div class="todo-task-status">progress</div>
-                      <button><i class="fa-solid fa-ellipsis-h"></i></button>
-                    </div>
-                    <div class="todo-task-title">buy it from the market near the autoriam</div>
-                    <div class="todo-section-middle">
-                      <div class="todo-task-date">12/12/25</div>
-                      <div class="todo-task-priority">high priority</div>
-                    </div>
-                    <div class="complete-button">
-                      <button onclick="completeTask()">complete</button>
-                    </div>
-                  </div>
-                </div> -->
-
+              <!-- <div class="todo-tems-default-txt">
+                No task to display... 
+                try adding a new task using add todo button 
+              </div> -->
+              <!-- Add your in-progress tasks here -->
             </div>
           </section>
           
           <section class="todo-section" id="completed">
             <div class="todo-section-top">
               <h2>Completed</h2>
-              <button onclick="Todomenu()">add todo</button>
+              <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
             
             <div class="todo-items" id="todo-items-completed">
+              <!-- <div class="todo-tems-default-txt">
+                No task to display... 
+                try adding a new task using add todo button
+              </div> -->
               <!-- Add your completed tasks here -->
             </div>
           </section>

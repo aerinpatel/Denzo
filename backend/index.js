@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const cors = require('cors');
+const cors = require("cors");
 const { userSchema, todoSchema } = require("./db");
 const bcrypt = require("bcryptjs"); // Use bcryptjs instead of bcrypt
 const jwt = require("jsonwebtoken");
@@ -68,7 +68,7 @@ app.post("/signup", async (req, res) => {
 app.post("/signin", async (req, res) => {
   console.log("POST /signin");
   console.log(req.body);
-  const username = req.body.username;  // added for response with username
+  const username = req.body.username; // added for response with username
   console.log(username);
   const email = req.body.email;
   const password = req.body.password;
@@ -83,11 +83,11 @@ app.post("/signin", async (req, res) => {
       res.send("Password incorrect");
       return;
     }
-    const token = jwt.sign({ _id: response._id }, JWT_SECRET); 
+    const token = jwt.sign({ _id: response._id }, JWT_SECRET);
     console.log(token);
     // localStorage.setItem("token", token);
     // localStorage.setItem("user", response._id);
-    res.status(200).json({ token: token,username: username }); // added response with token
+    res.status(200).json({ token: token, username: username }); // added response with token
   }
   //   res.send("success");
 });
@@ -109,6 +109,44 @@ app.post("/todos", authorization, async (req, res) => {
     priority: priority,
     status: status,
   });
+  res.status(200).send("success");
+});
+
+app.put("/todos/:id", authorization, async (req, res) => {
+  try {
+    console.log("PUT /todos/:id");
+    console.log("Todo ID:", req.params.id);
+    console.log("Request Body:", req.body);
+    console.log("Authorization Header:", req.headers.authorization);
+    console.log(typeof req.params.id);
+    console.log(typeof req.body.status);
+
+    const todoId = req.params.id;
+    const { status } = req.body;
+    console.log("now we will update the todo");
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      todoId,
+      { status },
+      { new: true }
+    );
+    console.log("this is the updated todo: " ,updatedTodo);
+    if (!updatedTodo) {
+      return res.status(404).send("Todo not found");
+    }
+
+    res.status(200).send("Todo updated successfully");
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    res.status(500).send("Failed to update todo");
+  }
+});
+
+app.delete("/todos/:id", authorization, async (req, res) => {
+  console.log("DELETE /todos/:id");
+  const todo_id = req.params.id;
+  console.log(todo_id);
+
+  await Todo.deleteOne({ _id: todo_id });
   res.status(200).send("success");
 });
 

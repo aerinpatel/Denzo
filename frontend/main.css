@@ -190,13 +190,18 @@ main .profile-display.closed {
   color: var(--dark);
   
 }
-.todo-container section .todo-section-top button{
-  border: none;
-  background-color: var(--blue);
-  color: var(--bright);
+.todo-section-top button{
+  border: 2px solid var(--blue);
+  background-color: var(--off-bright);
+  color: var(--dark);
   border-radius: 15px;
   padding: 0.5rem 1rem;
   margin: 0.5rem;
+}
+.todo-section-top button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
 }
 .todo-section-top{
   display: flex;
@@ -221,15 +226,14 @@ main .profile-display.closed {
 .user-welcome{
   margin-top: 1.5rem;
 }
+
 .right-part-main {
   flex-grow: 1; /* Allow it to expand to fill available space */
   height: 100vh; /* Full height of the viewport */
   overflow-y: auto; /* Enable vertical scrolling for the right part */
   padding: 2rem; /* Add some padding for better spacing */
   display: flex;
-  
   flex-direction: column;
-  transition: width 0.3s ease-in-out; /* Smooth transition for resizing */
 }
 .todo-task{
   /* border: 2px solid var(--blue); */
@@ -298,8 +302,8 @@ main .profile-display.closed {
   margin-top: 0.5rem;
 }
 .todo-task-priority{
-  border: 1px solid red;
-  background-color: rgb(255, 144, 144);
+  /* border: 1px solid red; */
+  background-color: var(--off-bright);
   padding: 0.3rem 0.7rem;
   color: var(--dark);
   border-radius: 50px;
@@ -309,8 +313,10 @@ main .profile-display.closed {
   align-items: center;
 }
 .todo-task-date{
-  color: var(--dark); 
-  text-decoration: underline;
+  color: grey;
+  font-size: 1rem;
+  font-weight: 550;
+  /* text-decoration: underline; */
 }
 .todo-input{
   position: absolute;
@@ -374,8 +380,7 @@ main .profile-display.closed {
 .close{
   /* width: 0; */
   /* height: 0; */
-  display: none;/
-  
+  display: none;
 }
 
 .sidebar {
@@ -411,6 +416,14 @@ main .profile-display.closed {
   background-color: var(--dark);
   color: var(--bright);
   transition: 0.3s ease-in-out;
+}
+.addtodo-btn{
+  border: 5px solid black;
+  background-color: var(--dark);
+  color: var(--bright);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
 }
 
  /* make the ui of the todo added more asthetic and make the input of the todos correct */

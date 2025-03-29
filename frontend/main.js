@@ -4,7 +4,7 @@
 
 // const { title } = require("process");
 // const { JWT_SECRET } = require("../backend/auth");
-
+// import axios from "axios"; // Ensure axios is imported correctly
 
 
 function loadtodos(){
@@ -26,38 +26,104 @@ function loadtodos(){
     const completed_items = document.getElementById("todo-items-completed");
     todo_items.innerHTML = "";
     todos.forEach((todo) => {
-      const new_todo = document.createElement("div");
       console.log(todo);
+      // const todo_id = JSON.stringify(todo._id);
+      const new_todo = document.createElement("div");
+      const formattedDate = todo.date ? todo.date.split("T")[0] : "No Date";
       new_todo.innerHTML = `<div class="item-todo list">
                   <div class="todo-task">
                     <div class="todo-task-top">
                       <div class="todo-task-status">${todo.status}</div>
-                      <button><i class="fa-solid fa-ellipsis-h"></i></button>
+                      <button onclick="deleteTask('${todo._id}')"><i class="fa-solid fa-ellipsis-h"></i>=</button>
                     </div>
                     <div class="todo-task-title">${todo.title}</div>
                     <div class="todo-section-middle">
-                      <div class="todo-task-date"></div>
+                      <div class="todo-task-date"><i class="fa-regular fa-calendar"></i> ${formattedDate}</div>
                       <div class="todo-task-priority">${todo.priority}</div>
                     </div>
                     <div class="complete-button">
-                      <button onclick="completeTask()">complete task</button>
+                      <button onclick="completeTask('${todo._id}')">complete task</button>
                     </div>
                   </div>
                 </div>`;
+                console.log(todo._id);
+                
       if(todo.status === "todo") {
         todo_items.appendChild(new_todo);
-      }else if(todo.status === "in-progress") {
+      } else if(todo.status === "in-progress") {
         progress_items.appendChild(new_todo);
       } else if(todo.status === "completed") {
+        new_todo.querySelector(".complete-button").style.display = "none";
         completed_items.appendChild(new_todo);
       }
 
-      if()
-    }).catch((error) => {
-      console.error(error);
-      alert("Failed to load todos");
+      if(todo.priority === "high") {
+        new_todo.querySelector(".todo-task-priority").innerHTML = "High Priority";
+        new_todo.querySelector(".todo-task-priority").style.color = "red";
+      }
+      else if(todo.priority === "medium") {
+        new_todo.querySelector(".todo-task-priority").innerHTML = "Medium Priority";
+        new_todo.querySelector(".todo-task-priority").style.color = "orange";
+      } else if(todo.priority === "low") {
+        new_todo.querySelector(".todo-task-priority").innerHTML = "Low Priority";
+        new_todo.querySelector(".todo-task-priority").style.color = "blue";
+      }
+    }); // Close forEach and then callback
+  }).catch((error) => {
+    console.error(error);
+    
+  });
+}
+
+function completeTask(todo_id) {
+  console.log("Todo ID:", todo_id); // Debugging log
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("User is not signed in. Redirecting to signin page.");
+    window.location.href = "http://localhost:3000/signin";
+    return;
+  }
+
+  axios
+    .put(
+      `http://localhost:3000/todos/${todo_id}`,
+      { status: "completed" },
+      {
+        headers: {
+          Authorization: `${token}`, // Add "Bearer" prefix
+        },
+      }
+    )
+    .then((response) => {
+      console.log("function has send the data");
+      console.log("Response:", response);
+      if (response.status === 200) {
+        loadtodos(); // Reload the todos after marking one as complete
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error.response ? error.response.data : error.message);
+      alert("Failed to mark todo as completed");
     });
-  })
+}
+
+function deleteTask(todo_id){
+  const token = localStorage.getItem("token");
+  if(!token){
+    alert("user not signin correctly");
+    window.location.href = "http://localhost:3000/signin";
+    return;
+  }
+  axios.delete(`http://localhost:3000/todos/${todo_id}`,{
+    headers:{
+      Authorization: token
+    }
+  }).then((response) => {
+    console.log("Todo deleted successfully:", response.data);
+    loadtodos(); // Reload the todos after deletion
+  }).catch((error) => {
+    console.error("Error deleting todo:", error.response ? error.response.data : error.message);
+  });
 }
 
 window.onload = function () {
@@ -119,23 +185,6 @@ function submitTodo() {
     status: status.value,
   };
 
-  // let new_todo = document.createElement("div");
-  // new_todo.innerHTML = `<div class="item-todos">
-  //               <div class="item-todo">
-  //                 <div class="todo-task">
-  //                   <div class="todo-task-top">
-  //                     <div class="todo-task-status">${status}</div>
-  //                     <button><i class="fa-solid fa-ellipsis-h"></i></button>
-  //                   </div>
-  //                   <div class="todo-task-title">${todo_title}</div>
-  //                   <div class="todo-section-middle">
-  //                     <div class="todo-task-date">${date}</div>
-  //                     <div class="todo-task-priority">high priority</div>
-  //                   </div>
-  //                 </div>
-  //               </div>`;
-
-  // document.getElementById("todo-items").appendChild(new_todo);
   const token = localStorage.getItem("token");
   axios
     .post("http://localhost:3000/todos", todo, {
@@ -146,8 +195,7 @@ function submitTodo() {
     .then((response) => {
       console.log(response);
       if (response.data === "success" || response.status === 200) {
-        alert("Todo created successfully");
-        
+        alert("Todo item created successfully!");
         window.location.href = "http://localhost:3000/todos";
         document.getElementById("user-name").innerText = user;
         Todomenu();
@@ -155,7 +203,7 @@ function submitTodo() {
     })
     .catch((error) => {
       console.error(error);
-      alert("Failed to create todo");
+      alert("Failed to create todo item. Please try again.");
     });
 }
 

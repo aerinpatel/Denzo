@@ -16,7 +16,7 @@ const userSchema = new Schema({
 const todoSchema = new Schema({
   title: String,
   status: String,
-  date: Date,
+  date: String,
   priority: String,
   user: {
     type: ObjectId,
