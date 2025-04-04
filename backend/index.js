@@ -15,7 +15,7 @@ app.use(cors());
 // Serve static files from the frontend directory
 
 mongoose.connect(
-  ""
+  "mongodb+srv://aerinpatel:aerin1213@cluster0.iqpmi.mongodb.net/denzo"
 );
 const User = mongoose.model("User", userSchema);
 const Todo = mongoose.model("Todo", todoSchema);
@@ -37,7 +37,24 @@ app.get("/todos", (req, res) => {
   console.log("GET /todos");
   res.sendFile(path.join(__dirname, "../frontend/main.html"));
 });
+// app.get("/todos/:id", async (req, res) => {
+//   try {
+//     console.log("GET /todos/:id");
+//     const todo_id = req.params.id;
+//     console.log("Todo ID:", todo_id);
 
+//     const todo = await Todo.find({_id: todo_id}); // Await the query to get the actual document
+//     if (!todo) {
+//       return res.status(404).send("Todo not found");
+//     }
+
+//     console.log("Todo:", todo);
+//     res.json(todo); // Send the actual todo document as JSON
+//   } catch (error) {
+//     console.error("Error fetching todo:", error);
+//     res.status(500).send("Failed to fetch todo");
+//   }
+// });
 app.get("/todos/items", authorization, async (req, res) => {
   console.log("GET /todos/items");
   const user = req.user; // from the authorization middleware
@@ -112,34 +129,62 @@ app.post("/todos", authorization, async (req, res) => {
   res.status(200).send("success");
 });
 
-app.put("/todos/:id", authorization, async (req, res) => {
-  try {
-    console.log("PUT /todos/:id");
-    console.log("Todo ID:", req.params.id);
-    console.log("Request Body:", req.body);
-    console.log("Authorization Header:", req.headers.authorization);
-    console.log(typeof req.params.id);
-    console.log(typeof req.body.status);
+ 
 
-    const todoId = req.params.id;
-    const { status } = req.body;
-    console.log("now we will update the todo");
+app.put("/todos/complete", authorization, async (req, res) => {
+  try {
+    console.log("PUT /todos/complete");
+    console.log("Request Body:", req.body);
+
+    const todoId = req.body.todo_id;
+    const status = req.body.status;
+
     const updatedTodo = await Todo.findByIdAndUpdate(
       todoId,
-      { status },
-      { new: true }
+      { status: status },
+      { new: true } // Return the updated document
     );
-    console.log("this is the updated todo: " ,updatedTodo);
+
     if (!updatedTodo) {
       return res.status(404).send("Todo not found");
     }
 
+    console.log("Updated Todo:", updatedTodo);
     res.status(200).send("Todo updated successfully");
   } catch (error) {
     console.error("Error updating todo:", error);
     res.status(500).send("Failed to update todo");
   }
 });
+
+app.put("/todos/:id", authorization, async (req, res) => {
+  try {
+    console.log("PUT /todos/:id");
+    console.log("Request Body:", req.body);
+
+    const todoId = req.params.id;
+    console.log("Todo ID:", todoId);
+    const { title, date, priority, status } = req.body;
+    console.log(title, date, priority, status);
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      todoId,
+      { title, date, priority, status },
+      { new: true } // Return the updated document
+    );
+
+
+    if (!updatedTodo) {
+      return res.status(404).send("Todo not found");
+    }
+
+    console.log("Updated Todo:", updatedTodo);
+    res.status(200).send("Todo updated successfully");
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    res.status(500).send("Failed to update todo");
+  }
+});
+
 
 app.delete("/todos/:id", authorization, async (req, res) => {
   console.log("DELETE /todos/:id");

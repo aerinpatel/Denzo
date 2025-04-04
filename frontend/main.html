@@ -33,11 +33,13 @@
         <div class="todo-input-middle">
           <input type="date" id="todo-date-input" />
           <select name="priority" id="todo-priority-input">
+            <option value="default" selected disabled>Select Priority</option>
             <option value="high">High Priority</option>
             <option value="medium">Medium Priority</option>
             <option value="low">Low Priority</option>
           </select>
           <select name="status" id="todo-status-input">
+            <option value="default" selected disabled>Select status</option>
             <option value="todo">Todo</option>
             <option value="in-progress">In Progress</option>
             <option value="completed">Completed</option>
@@ -46,6 +48,36 @@
         <div class="todo-input-bottom">
           <button onclick="Todomenu()">Cancel</button>
           <button onclick="submitTodo()">Add Todo</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="close todo-input" id="todo-input-two">
+      <div class="todo-input-form">
+
+        <div class="todo-input-top">
+          <h2>Add Todo two</h2>
+          <button onclick="Close_TodomenuTwo()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <input type="text" placeholder="Enter your task here" id="todo-title-two" />
+        <div class="todo-input-middle">
+          <input type="date" id="todo-date-input" />
+          <select name="priority" id="todo-priority-input-two">
+            <option value="default" selected disabled>Select Priority</option>
+            <option value="high">High Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="low">Low Priority</option>
+          </select>
+          <select name="status" id="todo-status-input-two">
+            <option value="default" selected disabled>Select status</option>
+            <option value="todo">Todo</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="todo-input-bottom">
+          <button onclick="Close_TodomenuTwo()">Cancel</button>
+          <button onclick="SubmitEditedTodo()">Add Todo</button>
         </div>
 
       </div>
@@ -96,11 +128,9 @@
               <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
             <div class="todo-items" id="todo-items-in-progress">
-              <!-- <div class="todo-tems-default-txt">
-                No task to display... 
-                try adding a new task using add todo button 
-              </div> -->
-              <!-- Add your in-progress tasks here -->
+              <div class="item-todo list">
+                
+              </div>
             </div>
           </section>
           

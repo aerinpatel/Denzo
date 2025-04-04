@@ -250,6 +250,33 @@ main .profile-display.closed {
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }
+.todo-task-top button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
+}
+.popup{
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+  /* gap: 0.3rem; */
+  /* border: 2px solid var(--dark); */
+  border-radius: 10px;
+  /* padding: 1rem; */
+  background-color: var(--bright);
+}
+
+.buttons-todo-task-top:hover .popup {
+  display: flex;
+}
+
+.close{
+  width: 0;
+  height: 0;
+  display: none;
+  background-color: red;
+}
 .todo-task-title{
   color: var(--dark);
   font-size: 1.5rem;
@@ -271,15 +298,17 @@ main .profile-display.closed {
   text-transform: capitalize;
   align-items: center;
 }
-.todo-task-top button{
+.popup-btn-parent{
   border: none;
-  background-color: var(--blue);
-  color: var(--bright);
+  background-color: var(--bright);
+  color: var(--dark);
   border-radius: 50px;
   display: flex;
+  font-size: 1.5rem;
   justify-content: center;
   align-items: center;
   padding: 0.3rem .5rem;
+  margin-right: 0.1rem;
 }
 .complete-button button{
   border: none;
@@ -425,5 +454,32 @@ main .profile-display.closed {
   padding: 0.5rem 1rem;
   margin-left: 1rem;
 }
+.popup button{
+  border: none;
+  height: 40px;
+  width: 100px;
 
+  background-color: var(--off-bright);
+  display: flex;
+  color: var(--dark);
+  /* justify-content: center; */
+  align-items: center;
+  padding: 0.3rem .5rem;
+  border-radius: none; 
+  padding: none;
+  border: 2px solid var(--dark);
+  i{
+    margin-right: 0.5rem;
+  }
+}
+.popup-btn-top{
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  /* border: 2px solid var(--dark); */
+}
+.popup-btn-bottom{
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  
+}
  /* make the ui of the todo added more asthetic and make the input of the todos correct */
