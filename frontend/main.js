@@ -1,3 +1,5 @@
+let currentEditTodoId = null;
+
 function loadtodos() {
   const token = localStorage.getItem("token");
   if (!token) {
@@ -31,8 +33,8 @@ function loadtodos() {
                         <button class="popup-btn-parent">
                           <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
-                        <div onclick="popup()" class="popup">
-                          <button class="popup-btn-top" onclick="TodomenuTwo('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                        <div class="popup">
+                          <button class="popup-btn-top" onclick="openEditTodoForm('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
                           <button class="popup-btn-bottom" onclick="deleteTask('${todo._id}')"><i class="fa-solid fa-trash"></i> Delete</button>
                         </div>
                       </div>
@@ -75,7 +77,27 @@ function loadtodos() {
       console.log("Error fetching todos:", error.response.data);
     });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const popupButtons = document.querySelectorAll(".popup-btn-parent");
 
+  // Add event listeners to each popup button
+  popupButtons.forEach((button) => {
+    const popup = button.querySelector(".popup");
+
+    // Close the popup when clicking outside
+    document.addEventListener("click", (event) => {
+      if (!button.contains(event.target)) {
+        popup.style.display = "none";
+      }
+    });
+
+    // Open the popup when clicking the button
+    button.addEventListener("click", (event) => {
+      event.stopPropagation(); // Prevent the click from propagating to the document
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    });
+  });
+});
 window.onload = function () {
   const token = localStorage.getItem("token");
   const user = localStorage.getItem("user");
@@ -159,130 +181,84 @@ function deleteTask(todo_id) {
     });
 }
 
-function TodomenuTwo(todo_id) {
+// Rename the function that loads todo details for editing:
+function openEditTodoForm(todo_id) {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("User is not signed in. Redirecting to signin page.");
     window.location.href = "http://localhost:3000/signin";
     return;
   }
+  if (todo_id) {
+    currentEditTodoId = todo_id;
+    axios
+      .post(`http://localhost:3000/todos/${todo_id}`, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const todo = response.data;
+        document.getElementById("todo-title-two").value = todo.title;
+        // Assuming date in ISO format
+        document.getElementById("todo-date-input-two").value = todo.date.split("T")[0];
+        document.getElementById("todo-priority-input-two").value = todo.priority;
+        document.getElementById("todo-status-input-two").value = todo.status;
+        document.getElementById("todo-input-two").classList.remove("close");
+      })
+      .catch((error) => {
+        console.error("Error fetching todo details:", error);
+        alert("Failed to fetch todo details.");
+      });
+  }
+}
+
+// Rename the function that simply toggles the edit form:
+function toggleEditTodoForm() {
   const todo_form = document.getElementById("todo-input-two");
-  if(todo_form.classList.contains("close")){
-    todo_form.classList.remove("close");
-  }
-  const todo_title = document.getElementById("todo-title");
-  const date = document.getElementById("todo-date-input");
-  const priority = document.getElementById("todo-priority-input");
-  const status = document.getElementById("todo-status-input");
+  todo_form.classList.toggle("close");
+}
 
-  if (todo_title.value.trim() === "") {
-    alert("Please enter a task title before submitting.");
-    todo_title.focus();
-    return; // Do not close the form if no data is entered
-  }
-  if(date.value == ""){
-    alert("Please enter a task date before submitting.");
-    date.focus();
-    return;
-  }
-  if(priority.value == "default"){
-    alert("Please select a task priority before submitting.");
-    priority.focus();
-    return;
-  }
-  if(status.value == "default"){
-    alert("Please select a task status before submitting.");
-    status.focus();
+window.openEditTodoForm = openEditTodoForm;
+window.toggleEditTodoForm = toggleEditTodoForm;
+
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "/signin";  // Redirect user to the signin page
+}
+
+// Function to submit the edited todo
+function SubmitEditedTodo() {
+  if (!currentEditTodoId) return;
+  const title = document.getElementById("todo-title-two").value;
+  const date = document.getElementById("todo-date-input-two").value;
+  const priority = document.getElementById("todo-priority-input-two").value;
+  const status = document.getElementById("todo-status-input-two").value;
+
+  if (title.trim() === "" || date === "" || priority === "default" || status === "default") {
+    alert("Please fill in all fields before submitting.");
     return;
   }
 
-  const todo = {
-    title: todo_title.value,
-    date: date.value,
-    priority: priority.value,
-    status: status.value   
-  };
-  axios.put(
-    `http://localhost:3000/todos/${todo_id}`,todo,
-    {
-      headers: {
-        Authorization: token, // Add "Bearer" prefix
-      }
-    }).then(response => {
-      console.log("function has sent the data");
-      console.log("Response:", response);
+  const updatedTodo = { 
+    title:title, date:date, priority:priority, status:status };
+  const token = localStorage.getItem("token");
+  axios
+    .put(`http://localhost:3000/todos/${currentEditTodoId}`, updatedTodo, {
+      headers: { Authorization: token },
+    })
+    .then((response) => {
       if (response.status === 200) {
-        loadtodos(); // Reload the todos after marking one as complete
+        alert("Todo updated successfully!");
+        loadtodos();
+        document.getElementById("todo-input-two").classList.add("close");
+        currentEditTodoId = null;
       }
-    }).catch(error => {
-      console.error(error)
-      console.log("Error updating todo:", error.response.data);
+    })
+    .catch((error) => {
+      console.error("Error updating todo:", error);
+      alert("Failed to update todo.");
     });
 }
 
-// async function editTask(todo_id) {
-//   const token = localStorage.getItem("token");
-//   if (!token) {
-//     alert("User is not signed in correctly");
-//     window.location.href = "http://localhost:3000/signin";
-//     return;
-//   }
-
-//   // Fetch the current todo details
-//   axios
-//     .get(`http://localhost:3000/todos/${todo_id}`, {
-//       headers: {
-//         Authorization: token, // Add "Bearer" prefix
-//       },
-//     })
-//     .then((response) => {
-//       const todo = response.data;
-
-//       // Pre-fill the form with the current todo details
-//       document.getElementById("todo-title").value = todo.title;
-//       document.getElementById("todo-date-input").value = todo.date.split("T")[0];
-//       document.getElementById("todo-priority-input").value = todo.priority;
-//       document.getElementById("todo-status-input").value = todo.status;
-
-//       // Open the form
-//       const todo_form = document.getElementById("todo-input");
-//       todo_form.classList.remove("close");
-
-//       // Update the form submission to save the edited todo
-//       const saveButton = document.getElementById("save-todo-button");
-//       saveButton.onclick = function () {
-//         const updatedTodo = {
-//           title: document.getElementById("todo-title").value,
-//           date: document.getElementById("todo-date-input").value,
-//           priority: document.getElementById("todo-priority-input").value,
-//           status: document.getElementById("todo-status-input").value,
-//         };
-
-//         // Send the updated todo to the backend
-//         axios
-//           .put(`http://localhost:3000/todos/${todo_id}`, updatedTodo, {
-//             headers: {
-//               Authorization: token,
-//             },
-//           })
-//           .then((response) => {
-//             if (response.status === 200) {
-//               alert("Todo updated successfully!");
-//               loadtodos(); // Reload todos
-//               todo_form.classList.add("close"); // Close the form
-//             }
-//           })
-//           .catch((error) => {
-//             console.error("Error updating todo:", error);
-//             alert("Failed to update todo.");
-//           });
-//       };
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching todo details:", error);
-//       alert("Failed to fetch todo details.");
-//     });
-// }
 function toggleSidebar() {
   const sidebar = document.getElementById("profile-display");
   sidebar.classList.toggle("closed");

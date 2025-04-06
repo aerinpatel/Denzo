@@ -56,12 +56,12 @@
       <div class="todo-input-form">
 
         <div class="todo-input-top">
-          <h2>Add Todo two</h2>
-          <button onclick="Close_TodomenuTwo()"><i class="fa-solid fa-xmark"></i></button>
+          <h2>Edit Todo</h2>
+          <button onclick="toggleEditTodoForm()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <input type="text" placeholder="Enter your task here" id="todo-title-two" />
         <div class="todo-input-middle">
-          <input type="date" id="todo-date-input" />
+          <input type="date" id="todo-date-input-two" />
           <select name="priority" id="todo-priority-input-two">
             <option value="default" selected disabled>Select Priority</option>
             <option value="high">High Priority</option>
@@ -76,8 +76,8 @@
           </select>
         </div>
         <div class="todo-input-bottom">
-          <button onclick="Close_TodomenuTwo()">Cancel</button>
-          <button onclick="SubmitEditedTodo()">Add Todo</button>
+          <button onclick="toggleEditTodoForm()">Cancel</button>
+          <button onclick="SubmitEditedTodo()">Save Todo</button>
         </div>
 
       </div>
@@ -96,7 +96,7 @@
           <button onclick="Todomenu()">add todo</button>
         </div>
         <div class="log-out">
-          <button><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
+          <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
         </div>
       </div>
       <button id="toggle-menu-button" onclick="toggleSidebar()"><i class="fa-solid fa-circle-half-stroke"></i></button>
@@ -119,6 +119,7 @@
                 try adding a new task using add todo button 
               </div>
               <!-- Add your todo items here -->
+              <button class="popup-btn-top" onclick="openEditTodoForm('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
             </div>
           </section>
           

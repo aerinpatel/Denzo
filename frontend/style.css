@@ -25,7 +25,63 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+.page2 {
+  display: flex;
+  
+  flex-wrap: wrap; /* Allow the boxes to wrap to the next row */
+  justify-content: center; /* Center the boxes */
+  gap: 2rem; /* Add space between the boxes */
+  padding: 2rem; /* Add padding around the container */
+  /* padding-top: 5rem; */
+  background-color: var(--bright); /* Light background for contrast */
+}
 
+.page2 .feature {
+  background-color: var(--dark); /* Dark background for the boxes */
+  color: var(--bright); /* Light text color */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 1.5rem; /* Add padding inside the boxes */
+  width: 20%; /* Set a fixed width for the boxes */
+  min-width: 350px; /* Ensure boxes don't get too small */
+  text-align: center; /* Center-align text */
+  transition: all 0.3s ease-in-out;
+}
+
+.page2 .feature:hover {
+  transform: translateY(-10px); /* Lift the box slightly on hover */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
+  background-image: linear-gradient(
+    to bottom right,
+    var(--dark),
+    var(--blue)
+  ); /* Gradient background on hover */
+  
+}
+
+.page2 .feature-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem; /* Add space below the title */
+}
+
+.page2 .feature-title i {
+  font-size: 2.5rem; /* Larger icon size */
+  margin-bottom: 0.5rem; /* Space between icon and title */
+  color: var(--blue); /* Highlight the icon */
+}
+
+.page2 .feature-title h4 {
+  font-size: 1.5rem; /* Larger title font size */
+  font-weight: bold;
+}
+
+.page2 .feature-discreption {
+  font-size: 1rem; /* Adjust font size for readability */
+  line-height: 1.5; /* Improve text spacing */
+  color: rgba(255, 255, 255, 0.8); /* Slightly lighter text color */
+}
 /* Navigation Bar */
 nav {
   position: fixed;
@@ -77,7 +133,10 @@ nav ul a {
   padding: 0.5rem 1.2rem;
   border-radius: 55rem;
 }
-
+.main-description-btn{
+  border: 4px solid var(--bright);
+  border-radius: 55rem;
+}
 .logo {
   margin-left: 3rem;
   font-size: 2rem;
@@ -140,7 +199,7 @@ main h1 {
   position: absolute;
   top: 0;
   left: 0;
-  
+  margin-bottom: -20vw;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -182,9 +241,10 @@ main h1 {
     padding: 2rem;
   }
 }
+
 .brightcl{
   /* background-color: var(--bright); */
-  color: var(--bright);
+  color: var(--dark);
 }
 .darkcl{
   color: var(--dark);
@@ -217,4 +277,101 @@ main h1 {
 
 .todo-section-top button:hover {
   background-color: var(--dark);
+}
+nav.hidden {
+  top: -15vh; 
+  /* color: var(--dark);
+  a{
+    color: var(--dark);
+  }
+  ul{
+    border-color: var(--dark);
+  } */
+  /* background-color: var(--dark); */
+  transition: top 0.3s ease; /* Smooth transition */
+}
+main .page3 {
+  height: 80vw;
+  width: 100vw; /* Set width for the container */
+  /* background-color: wheat;  */
+  margin-bottom: -20vh;
+  margin-top: -15vh;
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.page3-img {
+   /* Fill the parent container */
+  background-image: url('./images/main_photu.png'); /* Path to the image */
+  background-size: cover; /* Ensure the image covers the container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border-radius: 15px; /* Optional: Add rounded corners */
+  height: 100%;
+  width: 100%;
+}
+
+.page3-img-border{
+  height: 90%; /* Fill the parent container */
+  width: 90%;
+  position: absolute;
+  /* align-self: center; */
+  /* justify-self: center; */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for aesthetics */
+  border: 4px solid var(--dark); /* Optional: Add a border */
+  border-radius: 20px; /* Optional: Add rounded corners */
+  padding: 1rem;
+}
+.page1 a.page1-btn {
+  pointer-events: auto;
+}
+.page1-btn:hover{
+  color: var(--bright);
+  /* border-color: var(--dark); */
+}
+.page3-line{
+  width: 100%;
+  height: 43%;
+  background-image: linear-gradient( var(--dark), var(--blue));
+  margin-top: 2rem;
+  
+  margin-bottom: 2rem;
+}
+footer{
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: var(--dark);
+  color: var(--bright);
+  font-size: 1rem;
+  z-index: 1000;
+}
+.footer-content{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+
+  /* gap: 1rem; */
+  font-size: 1.2rem;
+}
+.footer-content .footer-logo{
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+  font-size: 2rem;
+}
+.footer-bottom a{
+  text-decoration: none;
+  color: var(--bright);
+}
+.footer-bottom a:hover{
+  color: blue;
+  text-decoration: underline;
 }

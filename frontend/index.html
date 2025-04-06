@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Denzo</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -25,26 +25,43 @@
         <li><a href="contact.html">Contact</a></li>
         <li><a href="#">Pricing</a></li>
       </ul>
-      <a href="signup.html" class="next-page-btn">Get Started</a>
+      <a href="main.html" class="next-page-btn">Get Started</a>
     </nav>
     <main>
       <div class="page1">
         <div class="pg-title1">
-          <span class="brightcl">|</span> Your tasks <span class="brightcl">.</span> Your vibe <span class="brightcl">.</span> Your way <span class="brightcl">|</span>
+          <span class="brightcl">|</span> Your tasks
+          <span class="brightcl">.</span> Your vibe
+          <span class="brightcl">.</span> Your way
+          <span class="brightcl">|</span>
         </div>
-        <div class="pg-title2">
-          Denzo - Turn chaos into clarity
-        </div>
+        <div class="pg-title2">Denzo - Turn chaos into clarity</div>
         <div class="description">
-          Welcome to Denzo—where sleek design meets smart task management.
-          Our intuitive platform empowers you to stay organized, focused, and effortlessly productive.
-          Experience the art of productivity, perfectly balanced with style.
+          Welcome to Denzo—where sleek design meets smart task management. Our
+          intuitive platform empowers you to stay organized, focused, and
+          effortlessly productive. Experience the art of productivity, perfectly
+          balanced with style.
         </div>
+        <a class="page1-btn next-page-btn darkcl" style="z-index: 10000;" href="main.html">Get Started</a>
+
       </div>
       <!-- Video container with set height -->
       <div class="video-box">
-        <video autoplay src="./images/855507-hd_1920_1080_25fps.mp4" type="video/mp4" muted loop id="myVideo"></video>
+        <video
+          autoplay
+          src="./images/855507-hd_1920_1080_25fps.mp4"
+          type="video/mp4"
+          muted
+          loop
+          id="myVideo"
+        ></video>
         <div class="blur-box"></div>
+      </div>
+      <div class="page3">
+        <div class="page3-line"></div>
+        <div class="page3-img-border">
+          <div class="page3-img"></div>
+        </div>
       </div>
       <div class="page2">
         <div class="feature feature1">
@@ -53,8 +70,9 @@
             <h4>Smart Task Management</h4>
           </div>
           <div class="feature-discreption">
-            Elevate your day with a sleek, intuitive platform that turns chaos into clarity.
-            Experience effortless productivity where every task is a step toward success.
+            Elevate your day with a sleek, intuitive platform that turns chaos
+            into clarity. Experience effortless productivity where every task is
+            a step toward success.
           </div>
         </div>
         <div class="feature feature2">
@@ -63,8 +81,9 @@
             <h4>Customizable Workflow</h4>
           </div>
           <div class="feature-discreption">
-            Tailor your task boards and processes to match your team's unique needs,
-            boosting efficiency and empowering smarter, more adaptable work.
+            Tailor your task boards and processes to match your team's unique
+            needs, boosting efficiency and empowering smarter, more adaptable
+            work.
           </div>
         </div>
         <div class="feature feature3">
@@ -73,8 +92,9 @@
             <h4>Cross Platform Sync</h4>
           </div>
           <div class="feature-discreption">
-            Seamlessly access your tasks on any device - our cross-platform sync keeps your updates
-            and reminders consistent, whether you're at home, in the office, or on the go.
+            Seamlessly access your tasks on any device - our cross-platform sync
+            keeps your updates and reminders consistent, whether you're at home,
+            in the office, or on the go.
           </div>
         </div>
         <div class="feature feature4">
@@ -83,8 +103,8 @@
             <h4>Smart Scheduling</h4>
           </div>
           <div class="feature-discreption">
-            Organize your day with intelligent task prioritization and optimal time allocation,
-            so you always focus on what matters most.
+            Organize your day with intelligent task prioritization and optimal
+            time allocation, so you always focus on what matters most.
           </div>
         </div>
         <div class="feature feature5">
@@ -93,12 +113,41 @@
             <h4>Awesome UI/UX</h4>
           </div>
           <div class="feature-discreption">
-            Experience a platform where stunning design meets effortless functionality.
-            Our interface boasts sleek visuals and intuitive navigation, making every interaction a delight.
+            Experience a platform where stunning design meets effortless
+            functionality. Our interface boasts sleek visuals and intuitive
+            navigation, making every interaction a delight.
           </div>
         </div>
+        <!-- <div class="feature feature6">
+          <div class="feature-title">
+            <i class="fa-brands fa-web-awesome"></i>
+            <h4>Awesome UI/UX</h4>
+          </div>
+          <div class="feature-discreption">
+            Experience a platform where stunning design meets effortless
+            functionality. Our interface boasts sleek visuals and intuitive
+            navigation, making every interaction a delight.
+          </div>
+        </div> -->
       </div>
+      
     </main>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h4>Denzo</h4>
+        </div>
+        <div class="footer-bottom">
+          <p>Made By creator of <a href="https://code-craft-io.netlify.app/">Code-Demo</a>💝- Aerin</p>
+        </div>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      
+    </footer>
 
     <!-- JavaScript to toggle the nav class on scroll -->
     <script>
@@ -113,9 +162,9 @@
 
           window.addEventListener("scroll", () => {
             if (window.scrollY > videoBottom) {
-              nav.classList.add("scrolled");
+              nav.classList.add("hidden"); // Hide the nav bar
             } else {
-              nav.classList.remove("scrolled");
+              nav.classList.remove("hidden"); // Show the nav bar
             }
           });
         });

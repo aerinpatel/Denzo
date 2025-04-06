@@ -6,17 +6,19 @@ const { userSchema, todoSchema } = require("./db");
 const bcrypt = require("bcryptjs"); // Use bcryptjs instead of bcrypt
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, authorization } = require("./auth");
+const dotenv = require("dotenv");
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
+const databaseURL = process.env.DATABASE_URL; // Use the environment variable for the database URL
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(cors());
 // Serve static files from the frontend directory
 
-mongoose.connect(
-  "mongodb+srv://aerinpatel:aerin1213@cluster0.iqpmi.mongodb.net/denzo"
-);
+
+mongoose.connect(databaseURL);
 const User = mongoose.model("User", userSchema);
 const Todo = mongoose.model("Todo", todoSchema);
 
@@ -194,6 +196,13 @@ app.delete("/todos/:id", authorization, async (req, res) => {
   await Todo.deleteOne({ _id: todo_id });
   res.status(200).send("success");
 });
+
+// app.delete("/todos/logout", authorization, async (req, res) => {
+//   console.log("DELETE /todos/logout");
+//   const user = req.user._id; // from the authorization middleware
+
+//   res.status(200).send("success");
+// });
 
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");

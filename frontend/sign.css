@@ -10,6 +10,9 @@
   --blue: #00649a;
   --off-bright: #efecff;
 }
+main{
+
+}
 nav {
   height: 7vh;
   background-color: var(--bright);
@@ -46,8 +49,12 @@ nav .nav-right {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
-  background-color: var(--bright);
+  min-height: 93vh;
+  background-image: url("./images/pexels-pixabay-158827.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
 }
 
 .sign-box {
