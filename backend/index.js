@@ -1,24 +1,22 @@
+const dotenv = require('dotenv').config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
 const { userSchema, todoSchema } = require("./db");
-const bcrypt = require("bcryptjs"); // Use bcryptjs instead of bcrypt
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, authorization } = require("./auth");
-const dotenv = require("dotenv");
-dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const databaseURL = process.env.DATABASE_URL; // Use the environment variable for the database URL
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(cors());
-// Serve static files from the frontend directory
-
-
-mongoose.connect(databaseURL);
+const databaseURL = process.env.DATABASE_URL; // Use the environment variable for the database URL
+console.log("Database URL:", databaseURL); // Debugging log
+console.log("JWT Secret:", JWT_SECRET); // Debugging log
+mongoose.connect(databaseURL)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.error("Error connecting to MongoDB:", error));
 const User = mongoose.model("User", userSchema);
 const Todo = mongoose.model("Todo", todoSchema);
 
