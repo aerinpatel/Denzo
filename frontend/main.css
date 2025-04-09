@@ -210,7 +210,7 @@ main .profile-display.closed {
   margin-bottom: 0.5rem;
 }
 .todo-section-top button:hover{
-  background-color: var(--bright);
+  background-color: var(--dark);
   color: var(--bright);
   transition: 0.1s ease-in-out;
 }
@@ -293,43 +293,6 @@ main .profile-display.closed {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.5rem;
-}
-.popup-btn-parent {
-  position: relative; /* Ensure the popup is positioned relative to the button */
-}
-
-.popup {
-  display: none; /* Initially hide the popup */
-  position: absolute;
-  top: 100%; /* Position below the button */
-  left: 0;
-  background-color: var(--bright);
-  border: 1px solid var(--dark);
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  padding: 0.5rem;
-}
-
-.popup-btn-parent:hover .popup {
-  display: block; /* Show the popup when hovering over the parent */
-}
-
-.popup button {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  background-color: var(--blue);
-  color: var(--bright);
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.popup button:hover {
-  background-color: var(--dark);
 }
 .todo-section-middle{
   display: flex;
@@ -415,8 +378,6 @@ main .profile-display.closed {
   background-color: var(--off-bright);
 }
 .close{
-  /* width: 0; */
-  /* height: 0; */
   display: none;
 }
 
@@ -431,6 +392,32 @@ main .profile-display.closed {
   width: 0; /* When closed, take no space */
   padding: 0; /* Remove padding when closed */
   border-right: none;
+}
+.popup{
+  position: absolute;
+  display: none;
+  height: 5rem;
+  width: 7rem;
+}
+.popup button{
+  border: 2px solid var(--dark);
+  background-color: var(--bright);
+  color: var(--dark);
+  width: 100%;
+  height: 50%;
+  cursor: pointer;
+}
+.popup button:hover{
+  background-color: var(--dark);
+  color: var(--bright);
+  transition: 0.3s ease-in-out;
+}
+.buttons-todo-task-top:hover .popup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
 }
 
 .sidebar.open {
@@ -454,6 +441,9 @@ main .profile-display.closed {
   color: var(--bright);
   transition: 0.3s ease-in-out;
 }
-
-
- /* make the ui of the todo added more asthetic and make the input of the todos correct */
+#toggle-menu-button:active{
+  transform: scale(0.9);
+}
+#toggle-menu-button:focus{
+  outline: none;
+}

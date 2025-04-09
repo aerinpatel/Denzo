@@ -34,8 +34,8 @@ function loadtodos() {
                           <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
                         <div class="popup">
-                          <button class="popup-btn-top" onclick="openEditTodoForm('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                          <button class="popup-btn-bottom" onclick="deleteTask('${todo._id}')"><i class="fa-solid fa-trash"></i> Delete</button>
+                          <button class="popup-btn-top" style="border-bottom-right-radius: 0; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 0;" onclick="toggleEditTodoForm('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                          <button class="popup-btn-bottom" style="border-top-right-radius: 0; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-left-radius: 0;" onclick="deleteTask('${todo._id}')"><i class="fa-solid fa-trash"></i> Delete</button>
                         </div>
                       </div>
                     </div>
@@ -77,6 +77,25 @@ function loadtodos() {
       console.log("Error fetching todos:", error.response.data);
     });
 }
+window.onload = function () {
+  const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
+  console.log(token);
+  console.log(user);
+  if (!user || !token) {
+    alert("user not signin correctly");
+    window.location.href = "http://localhost:3000/signin";
+    return;
+  }
+  console.log(localStorage.getItem("user"));
+  console.log(document.getElementsByClassName("user-name"));
+  const name = document.getElementsByClassName("user-name");
+  console.log(name);
+  name[0].innerText = user;
+  name[1].innerText = user;
+  loadtodos();
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const popupButtons = document.querySelectorAll(".popup-btn-parent");
 
@@ -98,24 +117,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-window.onload = function () {
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
-  console.log(token);
-  console.log(user);
-  if (!user || !token) {
-    alert("user not signin correctly");
-    window.location.href = "http://localhost:3000/signin";
-    return;
-  }
-  console.log(localStorage.getItem("user"));
-  console.log(document.getElementsByClassName("user-name"));
-  const name = document.getElementsByClassName("user-name");
-  console.log(name);
-  name[0].innerText = user;
-  name[1].innerText = user;
-  loadtodos();
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const popupButtons = document.querySelectorAll(".popup-btn-parent");
+
+  popupButtons.forEach((button) => {
+    const popup = button.querySelector(".popup");
+
+    // Show popup on hover
+    button.addEventListener("mouseenter", () => {
+      popup.style.display = "block";
+    });
+
+    // Hide popup when hover off
+    button.addEventListener("mouseleave", () => {
+      popup.style.display = "none";
+    });
+
+    // Toggle popup visibility on click
+    button.addEventListener("click", (event) => {
+      event.stopPropagation(); // Prevent click from propagating to the document
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  // Close all popups when clicking outside
+  document.addEventListener("click", () => {
+    popupButtons.forEach((button) => {
+      const popup = button.querySelector(".popup");
+      popup.style.display = "none";
+    });
+  });
+});
 
 function completeTask(todo_id) {
   console.log("Todo ID:", todo_id); // Debugging log
@@ -181,43 +213,13 @@ function deleteTask(todo_id) {
     });
 }
 
-// Rename the function that loads todo details for editing:
-function openEditTodoForm(todo_id) {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("User is not signed in. Redirecting to signin page.");
-    window.location.href = "http://localhost:3000/signin";
-    return;
-  }
-  if (todo_id) {
-    currentEditTodoId = todo_id;
-    axios
-      .post(`http://localhost:3000/todos/${todo_id}`, {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        const todo = response.data;
-        document.getElementById("todo-title-two").value = todo.title;
-        // Assuming date in ISO format
-        document.getElementById("todo-date-input-two").value = todo.date.split("T")[0];
-        document.getElementById("todo-priority-input-two").value = todo.priority;
-        document.getElementById("todo-status-input-two").value = todo.status;
-        document.getElementById("todo-input-two").classList.remove("close");
-      })
-      .catch((error) => {
-        console.error("Error fetching todo details:", error);
-        alert("Failed to fetch todo details.");
-      });
-  }
-}
-
 // Rename the function that simply toggles the edit form:
-function toggleEditTodoForm() {
+function toggleEditTodoForm(todo_id) {
   const todo_form = document.getElementById("todo-input-two");
   todo_form.classList.toggle("close");
+  currentEditTodoId = todo_id;
 }
 
-window.openEditTodoForm = openEditTodoForm;
 window.toggleEditTodoForm = toggleEditTodoForm;
 
 function logout() {
@@ -226,37 +228,63 @@ function logout() {
 }
 
 // Function to submit the edited todo
-function SubmitEditedTodo() {
-  if (!currentEditTodoId) return;
-  const title = document.getElementById("todo-title-two").value;
-  const date = document.getElementById("todo-date-input-two").value;
-  const priority = document.getElementById("todo-priority-input-two").value;
-  const status = document.getElementById("todo-status-input-two").value;
+function SubmitEditedTodo(){
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("user not signin correctly");
+    window.location.href = "http://localhost:3000/signin";
+    return;
+  }
+  if(!currentEditTodoId){
+    alert("unable to fetch todo id in edit end point");
+    window.location.href = "http://localhost:3000/todos";
+    return;
+  }
+  const todo_title = document.getElementById("todo-title-two");
+  const date = document.getElementById("todo-date-input-two");
+  const priority = document.getElementById("todo-priority-input-two");
+  const status = document.getElementById("todo-status-input-two");
 
-  if (title.trim() === "" || date === "" || priority === "default" || status === "default") {
-    alert("Please fill in all fields before submitting.");
+  // Validate that a task title has been entered
+  if (todo_title.value.trim() === "") {
+    alert("Please enter a task title before submitting.");
+    todo_title.focus();
+    return; // Do not close the form if no data is entered
+  }
+  if(date.value == ""){
+    alert("Please enter a task date before submitting.");
+    date.focus();
+    return;
+  }
+  if(priority.value == "default"){
+    alert("Please select a task priority before submitting.");
+    priority.focus();
+    return;
+  }
+  if(status.value == "default"){
+    alert("Please select a task status before submitting.");
+    status.focus();
     return;
   }
 
-  const updatedTodo = { 
-    title:title, date:date, priority:priority, status:status };
-  const token = localStorage.getItem("token");
-  axios
-    .put(`http://localhost:3000/todos/${currentEditTodoId}`, updatedTodo, {
-      headers: { Authorization: token },
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        alert("Todo updated successfully!");
-        loadtodos();
-        document.getElementById("todo-input-two").classList.add("close");
-        currentEditTodoId = null;
-      }
-    })
-    .catch((error) => {
-      console.error("Error updating todo:", error);
-      alert("Failed to update todo.");
-    });
+  const todo = {
+    title: todo_title.value,
+    date: date.value,
+    priority: priority.value,
+    status: status.value,
+  };
+  axios.put(`http://localhost:3000/todos/${currentEditTodoId}`,todo,{
+    headers: { Authorization: token },
+  }).then((response) => {
+    if (response.data === "success" || response.status === 200) {
+      loadtodos();
+      Todomenu();
+    }
+  }).catch((error) =>{
+    console.error(error);
+  });
+
+  console.log("before submitting ",todo);
 }
 
 function toggleSidebar() {

@@ -7,9 +7,13 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="main.css" />
     <!-- Include Font Awesome for hamburger icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
       integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <nav>
@@ -20,46 +24,60 @@
         <a href="index.html">home</a>
         <a href="#">twitter</a>
       </div>
-      
     </nav>
     <div class="close todo-input" id="todo-input">
       <div class="todo-input-form">
-
         <div class="todo-input-top">
           <h2>Add Todo</h2>
-          <button onclick="Todomenu()"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="Todomenu()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
-        <input type="text" placeholder="Enter your task here" id="todo-title" />
+        <textarea
+          name="todo-title"
+          class="todo-title-text"
+          placeholder="Enter your task here"
+          id="todo-title"
+        ></textarea>
+        <!-- <input type="text"  /> -->
         <div class="todo-input-middle">
+          <div class="todo-input-line1">
+            <select name="priority" class="todo-priority-input" id="todo-priority-input">
+              <option value="default" selected disabled>Select Priority</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+
+            <select name="status" id="todo-status-input">
+              <option value="default" selected disabled>Select status</option>
+              <option value="todo">Todo</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
           <input type="date" id="todo-date-input" />
-          <select name="priority" id="todo-priority-input">
-            <option value="default" selected disabled>Select Priority</option>
-            <option value="high">High Priority</option>
-            <option value="medium">Medium Priority</option>
-            <option value="low">Low Priority</option>
-          </select>
-          <select name="status" id="todo-status-input">
-            <option value="default" selected disabled>Select status</option>
-            <option value="todo">Todo</option>
-            <option value="in-progress">In Progress</option>
-            <option value="completed">Completed</option>
-          </select>
         </div>
         <div class="todo-input-bottom">
           <button onclick="Todomenu()">Cancel</button>
           <button onclick="submitTodo()">Add Todo</button>
         </div>
-
       </div>
     </div>
     <div class="close todo-input" id="todo-input-two">
       <div class="todo-input-form">
-
         <div class="todo-input-top">
           <h2>Edit Todo</h2>
-          <button onclick="toggleEditTodoForm()"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="toggleEditTodoForm()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
-        <input type="text" placeholder="Enter your task here" id="todo-title-two" />
+        <input
+          type="text"
+          class="todo-title-text"
+          placeholder="Enter your task here"
+          id="todo-title-two"
+        />
         <div class="todo-input-middle">
           <input type="date" id="todo-date-input-two" />
           <select name="priority" id="todo-priority-input-two">
@@ -79,7 +97,6 @@
           <button onclick="toggleEditTodoForm()">Cancel</button>
           <button onclick="SubmitEditedTodo()">Save Todo</button>
         </div>
-
       </div>
     </div>
     <main>
@@ -87,7 +104,10 @@
         <div class="profile-display-top">
           <div class="profile-card">
             <div class="profile-card-left">
-              <img src="./images/23 Darkly Humorous Comics That I Started Drawing 8 Months Ago To Escape Monotonous Routine.jpeg" alt="Profile">
+              <img
+                src="./images/23 Darkly Humorous Comics That I Started Drawing 8 Months Ago To Escape Monotonous Routine.jpeg"
+                alt="Profile"
+              />
             </div>
             <div class="profile-card-right">
               <h3><span class="user-name">guest</span></h3>
@@ -96,12 +116,15 @@
           <button onclick="Todomenu()">add todo</button>
         </div>
         <div class="log-out">
-          <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Log Out</button>
+          <button onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Log Out
+          </button>
         </div>
       </div>
-      <button id="toggle-menu-button" onclick="toggleSidebar()"><i class="fa-solid fa-circle-half-stroke"></i></button>
+      <button id="toggle-menu-button" onclick="toggleSidebar()">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </button>
       <div class="right-part-main">
-
         <div class="user-welcome">
           <h2>Welcome, <span class="user-name">guest</span></h2>
           <p>Here are your todos for today</p>
@@ -109,20 +132,18 @@
         <div class="todo-container">
           <section class="todo-section" id="all-todos">
             <div class="todo-section-top">
-              <h2>All Todos </h2>
+              <h2>All Todos</h2>
               <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
-            
+
             <div class="todo-items" id="todo-items-in-todo">
               <div class="todo-tems-default-txt">
-                No task to display... 
-                try adding a new task using add todo button 
+                No task to display... try adding a new task using add todo
+                button
               </div>
-              <!-- Add your todo items here -->
-              <button class="popup-btn-top" onclick="openEditTodoForm('${todo._id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
             </div>
           </section>
-          
+
           <section class="todo-section" id="in-progress">
             <div class="todo-section-top">
               <h2>In Progress</h2>
@@ -130,17 +151,40 @@
             </div>
             <div class="todo-items" id="todo-items-in-progress">
               <div class="item-todo list">
-                
+                <div class="item-todo list">
+                  <!-- <div class="todo-task">
+                    <div class="todo-task-top">
+                      <div class="todo-task-status">progress</div>
+                      <div class="buttons-todo-task-top">
+                        <button class="popup-btn-parent">
+                          <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <div class="popup">
+                          <button class="popup-btn-top" onclick="toggleEditTodoForm()"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                          <button class="popup-btn-bottom" onclick="deleteTask()"><i class="fa-solid fa-trash"></i> Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="todo-task-title">doing shit</div>
+                    <div class="todo-section-middle">
+                      <div class="todo-task-date"><i class="fa-regular fa-calendar"></i> ${formattedDate}</div>
+                      <div class="todo-task-priority">high priority</div>
+                    </div>
+                    <div class="complete-button">
+                      <button onclick="completeTask('${todo._id}')">complete task</button>
+                    </div>
+                  </div> -->
+                </div>
               </div>
             </div>
           </section>
-          
+
           <section class="todo-section" id="completed">
             <div class="todo-section-top">
               <h2>Completed</h2>
               <button class="addtodo-btn" onclick="Todomenu()">add todo</button>
             </div>
-            
+
             <div class="todo-items" id="todo-items-completed">
               <!-- <div class="todo-tems-default-txt">
                 No task to display... 
@@ -151,9 +195,8 @@
           </section>
         </div>
       </div>
-      </main>
-      
-      
-      <script src="main.js"></script>
-    </body>
-    </html>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
