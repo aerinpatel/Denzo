@@ -330,6 +330,9 @@ main .page3 {
   color: var(--bright);
   /* border-color: var(--dark); */
 }
+.brightcl{
+  color: var(--bright);
+}
 .page3-line{
   width: 100%;
   height: 43%;
