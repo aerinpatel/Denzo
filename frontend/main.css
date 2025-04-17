@@ -425,7 +425,7 @@ select option{
   padding: 0.3rem .5rem;
 }
 .todo-input-top button:hover{
-  background-color: red;
+  background-color: black;
   color: var(--bright);
   transition: 0.1s ease-in-out;
 }

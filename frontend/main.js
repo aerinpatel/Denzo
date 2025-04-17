@@ -24,6 +24,9 @@ function loadtodos() {
       todos.forEach((todo) => {
         console.log(todo);
         const new_todo = document.createElement("div");
+        // Set a unique id and mark as draggable
+        new_todo.setAttribute("id", `todo-${todo._id}`);
+        new_todo.setAttribute("draggable", true);
         const formattedDate = todo.date ? todo.date.split("T")[0] : "No Date";
         new_todo.innerHTML = `<div class="item-todo list">
                   <div class="todo-task">
@@ -58,23 +61,22 @@ function loadtodos() {
           completed_items.appendChild(new_todo);
         }
         if (todo.priority === "high") {
-          new_todo.querySelector(".todo-task-priority").innerHTML =
-            "High Priority";
+          new_todo.querySelector(".todo-task-priority").innerHTML = "High Priority";
           new_todo.querySelector(".todo-task-priority").style.color = "red";
         } else if (todo.priority === "medium") {
-          new_todo.querySelector(".todo-task-priority").innerHTML =
-            "Medium Priority";
+          new_todo.querySelector(".todo-task-priority").innerHTML = "Medium Priority";
           new_todo.querySelector(".todo-task-priority").style.color = "orange";
         } else if (todo.priority === "low") {
-          new_todo.querySelector(".todo-task-priority").innerHTML =
-            "Low Priority";
+          new_todo.querySelector(".todo-task-priority").innerHTML = "Low Priority";
           new_todo.querySelector(".todo-task-priority").style.color = "blue";
         }
-      }); // Close forEach and then callback
+      });
+      // After creating todos, attach drag event listeners to each item
+      attachDragAndDrop();
     })
     .catch((error) => {
       console.error(error);
-      console.log("Error fetching todos:", error.response.data);
+      // console.log("Error fetching todos:", error.response.data);
     });
 }
 window.onload = function () {
@@ -148,6 +150,65 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+function attachDragAndDrop() {
+  // Attach dragstart listener to all draggable todo items
+  document.querySelectorAll("[draggable='true']").forEach((item) => {
+    item.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", e.target.id);
+    });
+  });
+
+  // Get the three container elements
+  const containers = document.querySelectorAll(
+    "#todo-items-in-todo, #todo-items-in-progress, #todo-items-completed"
+  );
+
+  containers.forEach((container) => {
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault(); // Allow dropping
+      e.dataTransfer.dropEffect = "move";
+    });
+
+    container.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      const draggableId = e.dataTransfer.getData("text/plain");
+      const draggableElement = document.getElementById(draggableId);
+      if (draggableElement) {
+        container.appendChild(draggableElement);
+
+        // Determine the new status based on the container's ID
+        let newStatus = "todo";
+        if (container.id === "todo-items-in-progress") {
+          newStatus = "in-progress";
+        } else if (container.id === "todo-items-completed") {
+          newStatus = "completed";
+        }
+
+        // Extract the todo ID from the draggable element's ID
+        const todoId = draggableId.replace("todo-", "");
+
+        // Update the todo status on the backend
+        const token = localStorage.getItem("token");
+        if (token) {
+          try {
+            await axios.put(
+              `http://localhost:3000/todos/${todoId}`,
+              { status: newStatus },
+              {
+                headers: { Authorization: token },
+              }
+            );
+            loadtodos(); // Reload the todos after updating the status
+            console.log(`Todo ${todoId} status updated to ${newStatus}`);
+          } catch (error) {
+            console.error(`Failed to update todo ${todoId} status:`, error);
+          }
+        }
+      }
+    });
+  });
+}
 
 function completeTask(todo_id) {
   console.log("Todo ID:", todo_id); // Debugging log

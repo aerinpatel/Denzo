@@ -11,7 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <nav>
@@ -21,9 +21,9 @@
       </div>
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="#">Pricing</a></li>
+        <li><a>Features</a></li>
+        <li><a>Contact</a></li>
+        <li><a href="main.html">Get Started</a></li>
       </ul>
       <a href="main.html" class="next-page-btn">Get Started</a>
     </nav>
@@ -42,8 +42,12 @@
           effortlessly productive. Experience the art of productivity, perfectly
           balanced with style.
         </div>
-        <a class="page1-btn next-page-btn darkcl" style="z-index: 10000;" href="main.html">Get Started</a>
-
+        <a
+          class="page1-btn next-page-btn darkcl"
+          style="z-index: 10000"
+          href="main.html"
+          >Get Started</a
+        >
       </div>
       <!-- Video container with set height -->
       <div class="video-box">
@@ -130,7 +134,6 @@
           </div>
         </div> -->
       </div>
-      
     </main>
     <footer>
       <div class="footer-content">
@@ -138,15 +141,17 @@
           <h4>Denzo</h4>
         </div>
         <div class="footer-bottom">
-          <p>Made By creator of <a href="https://code-craft-io.netlify.app/">Code-Demo</a>💝- Aerin</p>
+          <p>
+            Made By creator of
+            <a href="https://code-craft-io.netlify.app/">Code-Demo</a>💝- Aerin
+          </p>
         </div>
         <div class="footer-socials">
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://x.com/Aerinpatel13"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://github.com/aerinpatel"><i class="fa-brands fa-github"></i></a>
+          <a href="https://www.instagram.com/aerin.ext/"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
-      
     </footer>
 
     <!-- JavaScript to toggle the nav class on scroll -->
@@ -168,6 +173,55 @@
             }
           });
         });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Find the "Features" link by text content
+        const navLinks = document.querySelectorAll("nav ul li a");
+        let featuresLink = null;
+        navLinks.forEach((link) => {
+          if (link.textContent.trim() === "Features") {
+            featuresLink = link;
+          }
+        });
+
+        // Get the features section (assumed to be the container with class "page2")
+        const featuresSection = document.querySelector(".page2");
+
+        if (featuresLink && featuresSection) {
+          featuresLink.style.cursor = "pointer";
+          featuresLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            featuresSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          });
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Handle "Contact" link scrolling to the footer
+        const navLinks = document.querySelectorAll("nav ul li a");
+        let contactLink = null;
+        navLinks.forEach((link) => {
+          if (link.textContent.trim() === "Contact") {
+            contactLink = link;
+          }
+        });
+
+        const footer = document.querySelector("footer");
+
+        if (contactLink && footer) {
+          contactLink.style.cursor = "pointer";
+          contactLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            footer.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          });
+        }
       });
     </script>
   </body>

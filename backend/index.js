@@ -7,6 +7,8 @@ const bcrypt = require("bcryptjs"); // Use bcryptjs instead of bcrypt
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET, authorization } = require("./auth");
 const dotenv = require("dotenv").config(); // Load environment variables from .env file
+const { z } = require("zod");
+const { title } = require("process");
 
 const app = express();
 const databaseURL = process.env.DATABASE_URL; // Use the environment variable for the database URL
@@ -16,6 +18,15 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.use(cors());
 // Serve static files from the frontend directory
 
+const userSchemaValidation = z.object({
+  email: z.string().email(),
+  password: z.string().min(1)
+});
+
+const todoSchemaValidation = z.object({
+  title: z.string(),
+  date: z.date()
+})
 
 mongoose.connect(databaseURL);
 const User = mongoose.model("User", userSchema);
@@ -66,6 +77,14 @@ app.get("/todos/items", authorization, async (req, res) => {
 app.post("/signup", async (req, res) => {
   console.log("POST /signup");
   console.log(req.body);
+
+  const result = userSchemaValidation.safeParse(req.body);
+  if(result.success == false){
+    console.log("invalid input data");
+    // return;
+    res.send("fail");
+  }
+
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
