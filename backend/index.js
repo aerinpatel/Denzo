@@ -15,7 +15,13 @@ const databaseURL = process.env.DATABASE_URL; // Use the environment variable fo
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../frontend")));
-app.use(cors());
+app.use(cors(
+  {
+    origin: "https://denzo.netlify.app/", // Allow requests from this origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  }
+));
 // Serve static files from the frontend directory
 
 const userSchemaValidation = z.object({
