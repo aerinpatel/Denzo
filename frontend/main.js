@@ -97,7 +97,12 @@ window.onload = function () {
   name[1].innerText = user;
   loadtodos();
 };
-
+// document.addEventListener("click", () => {
+//   popupButtons.forEach((button) => {
+//     const popup = button.querySelector(".popup");
+//     popup.style.display = "none";
+//   });
+// });
 document.addEventListener("DOMContentLoaded", () => {
   const popupButtons = document.querySelectorAll(".popup-btn-parent");
 

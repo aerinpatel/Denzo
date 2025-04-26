@@ -75,31 +75,83 @@
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <input
+        <textarea name="todo-title-two" class="todo-title-text"
+        placeholder="Enter your task here" id="todo-title-two"></textarea>
+        <!-- <input
           type="text"
           class="todo-title-text"
           placeholder="Enter your task here"
           id="todo-title-two"
-        />
+        /> -->
         <div class="todo-input-middle">
-          <input type="date" id="todo-date-input-two" />
-          <select name="priority" id="todo-priority-input-two">
+          <!-- <input type="date" class="todo-task-date" id="todo-date-input-two" />
+          <select name="priority" class="todo-task-priority" id="todo-priority-input-two">
             <option value="default" selected disabled>Select Priority</option>
             <option value="high">High Priority</option>
             <option value="medium">Medium Priority</option>
             <option value="low">Low Priority</option>
           </select>
-          <select name="status" id="todo-status-input-two">
+          <select name="status" class="todo-task-status" id="todo-status-input-two">
             <option value="default" selected disabled>Select status</option>
             <option value="todo">Todo</option>
             <option value="in-progress">In Progress</option>
             <option value="completed">Completed</option>
-          </select>
+          </select> -->
+          <div class="todo-input-line1">
+            <select name="priority" class="todo-priority-input" id="todo-priority-input-two">
+              <option value="default" selected disabled>Select Priority</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+
+            <select name="status" id="todo-status-input-two">
+              <option value="default" selected disabled>Select status</option>
+              <option value="todo">Todo</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+            
+          </div>
+          <div class="todo-input-line2">
+
+            <input type="date" class="todo-input-bottom" id="todo-date-input-two" />
+            <div class="todo-input-bottom">
+              <!-- <button onclick="Todomenu()">Cancel</button>
+              <button onclick="submitTodo()">Add Todo</button> -->
+              <button onclick="toggleEditTodoForm()">Cancel</button>
+              <button onclick="SubmitEditedTodo()">Save Todo</button>
+            </div>
+          </div>
         </div>
-        <div class="todo-input-bottom">
-          <button onclick="toggleEditTodoForm()">Cancel</button>
-          <button onclick="SubmitEditedTodo()">Save Todo</button>
+        <!-- <div class="todo-input-bottom">
+         
+        </div> -->
+        <!-- <div class="todo-input-middle">
+          <div class="todo-input-line1">
+            <select name="priority" class="todo-priority-input" id="todo-priority-input">
+              <option value="default" selected disabled>Select Priority</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+
+            <select name="status" id="todo-status-input">
+              <option value="default" selected disabled>Select status</option>
+              <option value="todo">Todo</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
         </div>
+        <div class="todo-input-line2">
+
+          <input type="date" class="todo-input-bottom" id="todo-date-input" />
+          <div class="todo-input-bottom">
+            <button onclick="Todomenu()">Cancel</button>
+            <button onclick="submitTodo()">Add Todo</button>
+          </div>
+        </div> -->
       </div>
     </div>
     <main>

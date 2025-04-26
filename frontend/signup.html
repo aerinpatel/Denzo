@@ -40,6 +40,11 @@
           const password = document.getElementById("password").value;
           const confirmPassword = document.getElementById("confirm-password").value;
 
+          if(email.trim() === "" || username.trim() === "" || password.trim() === "" || confirmPassword.trim() === "") {
+            alert("Please fill in all fields!");
+            return;
+          }
+
           if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;

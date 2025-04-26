@@ -167,9 +167,19 @@ main .profile-display.closed {
   height: 100%;
   
 }
+
+.popup button i{
+  margin-right: 1rem;
+}
+
 .todo-title-text{
   height: 7rem;
   width: 100%;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+#todo-title-two{
+  padding: 1rem;
 }
 .todo-container {
   
