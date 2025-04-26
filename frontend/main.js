@@ -4,11 +4,11 @@ function loadtodos() {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("User is not signed in. Redirecting to signin page.");
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://denzo.netlify.app/signin";
     return;
   }
   axios
-    .get("http://localhost:3000/todos/items", {
+    .get("https://denzo.netlify.app/todos/items", {
       headers: { Authorization: token },
     })
     .then((response) => {
@@ -86,7 +86,7 @@ window.onload = function () {
   console.log(user);
   if (!user || !token) {
     alert("user not signin correctly");
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://denzo.netlify.app/signin";
     return;
   }
   console.log(localStorage.getItem("user"));
@@ -198,7 +198,7 @@ function attachDragAndDrop() {
         if (token) {
           try {
             await axios.put(
-              `http://localhost:3000/todos/${todoId}`,
+              `https://denzo.netlify.app/todos/${todoId}`,
               { status: newStatus },
               {
                 headers: { Authorization: token },
@@ -220,13 +220,13 @@ function completeTask(todo_id) {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("User is not signed in. Redirecting to signin page.");
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://denzo.netlify.app/signin";
     return;
   }
 
   axios
     .put(
-      `http://localhost:3000/todos/complete`,
+      `https://denzo.netlify.app/todos/complete`,
       { status: "completed", todo_id: todo_id },
       {
         headers: {
@@ -254,11 +254,11 @@ function deleteTask(todo_id) {
   const token = localStorage.getItem("token");
   if (!token) {
     alert("user not signin correctly");
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://denzo.netlify.app/signin";
     return;
   }
   axios
-    .delete(`http://localhost:3000/todos/${todo_id}`, {
+    .delete(`https://denzo.netlify.app/todos/${todo_id}`, {
       headers: {
         Authorization: token,
       },
@@ -298,12 +298,12 @@ function SubmitEditedTodo(){
   const token = localStorage.getItem("token");
   if (!token) {
     alert("user not signin correctly");
-    window.location.href = "http://localhost:3000/signin";
+    window.location.href = "https://denzo.netlify.app/signin";
     return;
   }
   if(!currentEditTodoId){
     alert("unable to fetch todo id in edit end point");
-    window.location.href = "http://localhost:3000/todos";
+    window.location.href = "https://denzo.netlify.app/todos";
     return;
   }
   const todo_title = document.getElementById("todo-title-two");
@@ -339,7 +339,7 @@ function SubmitEditedTodo(){
     priority: priority.value,
     status: status.value,
   };
-  axios.put(`http://localhost:3000/todos/${currentEditTodoId}`,todo,{
+  axios.put(`https://denzo.netlify.app/todos/${currentEditTodoId}`,todo,{
     headers: { Authorization: token },
   }).then((response) => {
     if (response.data === "success" || response.status === 200) {
@@ -404,14 +404,14 @@ function submitTodo() {
   console.log("before submitting ",todo);
   const token = localStorage.getItem("token");
   axios
-    .post("http://localhost:3000/todos", todo, {
+    .post("https://denzo.netlify.app/todos", todo, {
       headers: { Authorization: token },
     })
     .then((response) => {
       console.log(response);
       if (response.data === "success" || response.status === 200) {
         
-        // window.location.href = "http://localhost:3000/todos";
+        // window.location.href = "https://denzo.netlify.app/todos";
         // document.getElementById("user-name").innerText = user;
         loadtodos(); // Reload the todos after adding a new one
         Todomenu(); // Close the form only after data is sent

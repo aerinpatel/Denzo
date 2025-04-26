@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET, authorization } = require("./auth");
 const dotenv = require("dotenv").config(); // Load environment variables from .env file
 const { z } = require("zod");
-const { title } = require("process");
+// const { title } = require("process");
 
 const app = express();
 const databaseURL = process.env.DATABASE_URL; // Use the environment variable for the database URL
