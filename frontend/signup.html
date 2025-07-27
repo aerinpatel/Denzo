@@ -30,7 +30,7 @@
             <input type="password" placeholder="Confirm Password" id="confirm-password" />
             <button onclick="sendData()">Sign Up</button>
           </div>
-          <p>already a user <a href="hhttps://denzo.netlify.app/signin">signin</a></p>
+          <p>already a user <a href="/signin.html">signin</a></p>
         </div>
       </div>
       <script>
@@ -51,7 +51,7 @@
           }
 
           axios
-            .post("hhttps://denzo.netlify.app/signup", {
+            .post("/api/signup", {
               email: email,
               password: password,
               username: username,
@@ -60,7 +60,7 @@
               console.log(response);
               if (response.data === "success") {
                 alert("Signup successful");
-                window.location.href = "hhttps://denzo.netlify.app/signin";
+                window.location.href = "/signin.html";
               } else {
                 alert("Signup failed");
               }

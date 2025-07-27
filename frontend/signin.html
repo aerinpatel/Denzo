@@ -29,7 +29,7 @@
             <input type="password" placeholder="Password" id="password" />
             <button onclick="sendData()">Sign in</button>
           </div>
-          <p>register as a new user <a href="https://denzo.netlify.app/signup">signup</a></p>
+          <p>register as a new user <a href="/signup.html">signup</a></p>
         </div>
       </div>
       <script>
@@ -44,7 +44,7 @@
           }
 
           axios
-            .post("https://denzo.netlify.app/signin", {
+            .post("/api/signin", {
               username:username,
               email: email,
               password: password,
@@ -55,7 +55,7 @@
                 alert("Signin successful");
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user", response.data.username);
-                window.location.href = "https://denzo.netlify.app/todos";
+                window.location.href = "/main.html";
               } else {
                 alert("Signin failed");
               }
